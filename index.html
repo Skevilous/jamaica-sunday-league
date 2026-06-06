@@ -1,0 +1,151 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Jamaica Sunday League Stats</title>
+    <meta
+      name="description"
+      content="Mobile-friendly stats tracker for a Sunday football league among friends in Jamaica."
+    >
+    <meta property="og:title" content="Jamaica Sunday League Stats">
+    <meta
+      property="og:description"
+      content="League table, results, scorers, and upcoming fixtures for the Sunday crew."
+    >
+    <meta property="og:type" content="website">
+    <meta name="theme-color" content="#0f6f31">
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <div class="page-shell">
+      <header class="hero">
+        <nav class="top-bar" aria-label="Primary">
+          <a class="brand" href="#top" aria-label="Jamaica Sunday League home">
+            <span class="brand-mark" aria-hidden="true">
+              <svg viewBox="0 0 64 64" role="img">
+                <circle cx="32" cy="32" r="29" fill="#f58220"></circle>
+                <path d="M32 8 56 52H8Z" fill="#0f6f31"></path>
+                <circle cx="32" cy="32" r="14" fill="#fff"></circle>
+                <path d="m32 18 8 6-3 10H27l-3-10Z" fill="#111"></path>
+                <path d="m20 31 7 3 1 9-8 2-6-8Z" fill="#111"></path>
+                <path d="m44 31 6 6-6 8-8-2 1-9Z" fill="#111"></path>
+              </svg>
+            </span>
+            <span>Sunday League</span>
+          </a>
+          <div class="nav-links">
+            <a href="#table">Table</a>
+            <a href="#results">Results</a>
+            <a href="#scorers">Scorers</a>
+          </div>
+        </nav>
+
+        <section id="top" class="hero-grid" aria-labelledby="page-title">
+          <div class="hero-copy">
+            <p class="season">Season started <span id="season-start">May 31, 2026</span></p>
+            <h1 id="page-title">Jamaica Sunday League</h1>
+            <p class="tagline">Friends. Football. Bragging rights.</p>
+            <div class="hero-actions" aria-label="Quick stats">
+              <a href="#table" class="primary-action">View Table</a>
+              <a href="#results" class="secondary-action">Week 1 Result</a>
+            </div>
+          </div>
+
+          <aside class="leader-card" aria-labelledby="leader-title">
+            <p id="leader-title" class="card-kicker">Current Leader</p>
+            <div class="leader-team">
+              <span id="leader-swatch" class="team-swatch"></span>
+              <div>
+                <strong id="leader-name">Loading</strong>
+                <span id="leader-record">Calculating table</span>
+              </div>
+            </div>
+            <dl class="leader-stats">
+              <div>
+                <dt>Pts</dt>
+                <dd id="leader-points">0</dd>
+              </div>
+              <div>
+                <dt>GD</dt>
+                <dd id="leader-gd">0</dd>
+              </div>
+              <div>
+                <dt>GF</dt>
+                <dd id="leader-gf">0</dd>
+              </div>
+            </dl>
+          </aside>
+        </section>
+      </header>
+
+      <main>
+        <section id="table" class="section-card table-section" aria-labelledby="table-title">
+          <div class="section-heading">
+            <div>
+              <p class="section-label">Standings</p>
+              <h2 id="table-title">League Table</h2>
+            </div>
+            <span class="updated-badge" id="last-updated">Week 1</span>
+          </div>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Team</th>
+                  <th>P</th>
+                  <th>W</th>
+                  <th>D</th>
+                  <th>L</th>
+                  <th>GF</th>
+                  <th>GA</th>
+                  <th>GD</th>
+                  <th>Pts</th>
+                </tr>
+              </thead>
+              <tbody id="league-table"></tbody>
+            </table>
+          </div>
+        </section>
+
+        <div class="content-grid">
+          <section id="results" class="section-card" aria-labelledby="results-title">
+            <div class="section-heading">
+              <div>
+                <p class="section-label">Matchdays</p>
+                <h2 id="results-title">Results</h2>
+              </div>
+            </div>
+            <div id="results-list" class="results-list"></div>
+          </section>
+
+          <section id="scorers" class="section-card" aria-labelledby="scorers-title">
+            <div class="section-heading">
+              <div>
+                <p class="section-label">Golden Boot</p>
+                <h2 id="scorers-title">Top Scorers</h2>
+              </div>
+            </div>
+            <ol id="scorers-list" class="scorers-list"></ol>
+          </section>
+        </div>
+
+        <section id="fixtures" class="section-card fixtures-card" aria-labelledby="fixtures-title">
+          <div class="section-heading">
+            <div>
+              <p class="section-label">Next Up</p>
+              <h2 id="fixtures-title">Fixtures</h2>
+            </div>
+          </div>
+          <div id="fixtures-list" class="fixtures-list"></div>
+        </section>
+      </main>
+
+      <footer>
+        <p>One community. One game. One love.</p>
+        <a href="#top">Back to top</a>
+      </footer>
+    </div>
+    <script src="script.js"></script>
+  </body>
+</html>
