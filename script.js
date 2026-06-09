@@ -27,7 +27,7 @@ const leagueData = {
       homeScore: 1,
       awayScore: 0,
       scorers: [
-        { player: "Rallion", team: "Green", goals: 1 },
+        { player: "Chip", team: "Green", goals: 1 },
       ],
     },
   ],
