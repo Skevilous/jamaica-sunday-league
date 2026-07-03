@@ -51,6 +51,18 @@ const leagueData = {
         { player: "Kellon", team: "Orange", goals: 1 },
       ],
     },
+    {
+      week: 5,
+      date: "June 28, 2026",
+      homeTeam: "Green",
+      awayTeam: "Orange",
+      homeScore: 2,
+      awayScore: 1,
+      scorers: [
+        { player: "Simple", team: "Green", goals: 1 },
+        { player: "Pepe", team: "Green", goals: 1 },
+      ],
+    },
   ],
   fixtures: [],
 };
