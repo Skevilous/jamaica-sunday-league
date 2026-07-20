@@ -70,7 +70,11 @@ const leagueData = {
       awayTeam: "Orange",
       homeScore: 3,
       awayScore: 1,
-      scorers: [],
+      scorers: [
+        { player: "Dougie", team: "Green", goals: 1 },
+        { player: "Rallion", team: "Green", goals: 1 },
+        { player: "Shampoo", team: "Green", goals: 1 },
+      ],
     },
     {
       week: 7,
