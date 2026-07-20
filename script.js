@@ -65,6 +65,18 @@ const leagueData = {
     },
     {
       week: 6,
+      date: "July 5, 2026",
+      homeTeam: "Green",
+      awayTeam: "Orange",
+      homeScore: 3,
+      awayScore: 2,
+      scorers: [
+        { player: "Rallion", team: "Green", goals: 1 },
+        { player: "Kicka", team: "Green", goals: 2 },
+      ],
+    },
+    {
+      week: 7,
       date: "July 12, 2026",
       homeTeam: "Green",
       awayTeam: "Orange",
@@ -77,7 +89,7 @@ const leagueData = {
       ],
     },
     {
-      week: 7,
+      week: 8,
       date: "July 19, 2026",
       homeTeam: "Green",
       awayTeam: "Orange",
