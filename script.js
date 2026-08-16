@@ -231,69 +231,69 @@ function calculateScorers() {
   ));
 }
 
-function renderLeader(table) {
-  const leader = table[0];
-  document.getElementById("leader-name").textContent = leader.team;
-  document.getElementById("leader-record").textContent =
-    `${leader.won}W ${leader.drew}D ${leader.lost}L from ${leader.played} played`;
-  document.getElementById("leader-points").textContent = leader.points;
-  document.getElementById("leader-gd").textContent =
-    leader.goalDifference > 0 ? `+${leader.goalDifference}` : leader.goalDifference;
-  document.getElementById("leader-gf").textContent = leader.goalsFor;
-  document.getElementById("leader-swatch").style.background = leader.color;
-}
-
 function renderTable(table) {
   const tableBody = document.getElementById("league-table");
-  tableBody.innerHTML = table.map((row) => `
+  tableBody.innerHTML = table.map((row, index) => `
     <tr>
-      <td>
-        <span class="team-cell">
-          <span class="mini-swatch" style="background: ${row.color}"></span>
-          ${row.team}
-        </span>
-      </td>
+      <td class="rank-cell" style="--team-color: ${row.color}">${index + 1}</td>
+      <td class="team-cell" style="--team-color: ${row.color}">${row.team}</td>
       <td>${row.played}</td>
       <td>${row.won}</td>
       <td>${row.drew}</td>
       <td>${row.lost}</td>
-      <td>${row.goalsFor}</td>
-      <td>${row.goalsAgainst}</td>
+      <td class="table-detail">${row.goalsFor}</td>
+      <td class="table-detail">${row.goalsAgainst}</td>
       <td>${row.goalDifference > 0 ? `+${row.goalDifference}` : row.goalDifference}</td>
-      <td>${row.points}</td>
+      <td class="points-cell" style="--team-color: ${row.color}">${row.points}</td>
     </tr>
   `).join("");
 }
 
-function formatScorers(scorers) {
-  if (!scorers.length) {
-    return "No scorers recorded";
-  }
+function shortDate(date) {
+  return new Intl.DateTimeFormat("en-US", {
+    month: "short",
+    day: "numeric",
+    timeZone: "UTC",
+  }).format(new Date(`${date} 00:00:00 UTC`));
+}
 
-  return scorers
-    .map((scorer) => `${scorer.player} (${scorer.team}) ${scorer.goals}`)
-    .join(", ");
+function formatTeamScorers(match, teamName) {
+  const entries = match.scorers.filter((scorer) => scorer.team === teamName);
+  return entries.length
+    ? entries.map((scorer) => `${scorer.player} ${scorer.goals}`).join(", ")
+    : "No scorer recorded";
+}
+
+function renderLatestResult() {
+  const latestMatch = leagueData.matches.at(-1);
+  const homeColor = getTeamColor(latestMatch.homeTeam);
+  const awayColor = getTeamColor(latestMatch.awayTeam);
+
+  document.getElementById("latest-week").textContent = latestMatch.week;
+  document.getElementById("latest-date").textContent = shortDate(latestMatch.date);
+  document.getElementById("latest-home-team").textContent = latestMatch.homeTeam;
+  document.getElementById("latest-away-team").textContent = latestMatch.awayTeam;
+  document.getElementById("latest-home-score").textContent = latestMatch.homeScore;
+  document.getElementById("latest-away-score").textContent = latestMatch.awayScore;
+  document.getElementById("latest-home-scorers").textContent =
+    formatTeamScorers(latestMatch, latestMatch.homeTeam);
+  document.getElementById("latest-away-scorers").textContent =
+    formatTeamScorers(latestMatch, latestMatch.awayTeam);
+  document.getElementById("latest-home-block").style.setProperty("--team-color", homeColor);
+  document.getElementById("latest-away-block").style.setProperty("--team-color", awayColor);
 }
 
 function renderResults() {
   const resultsList = document.getElementById("results-list");
+  const newestFirst = [...leagueData.matches].reverse();
 
-  resultsList.innerHTML = leagueData.matches.map((match) => `
-    <article class="matchday-card">
-      <div class="matchday-header">
-        <span>Week ${match.week}</span>
-        <span>${match.date}</span>
-      </div>
-      <div class="match-row">
-        <strong class="team-name" style="color: ${getTeamColor(match.homeTeam)}">${match.homeTeam}</strong>
-        <span class="scoreline">
-          <strong>${match.homeScore}</strong>
-          <span>-</span>
-          <strong>${match.awayScore}</strong>
-        </span>
-        <strong class="team-name away" style="color: ${getTeamColor(match.awayTeam)}">${match.awayTeam}</strong>
-      </div>
-      <div class="scorer-note">Scorers: ${formatScorers(match.scorers)}</div>
+  resultsList.innerHTML = newestFirst.map((match, index) => `
+    <article class="result-row${index > 2 ? " is-extra" : ""}" aria-label="Week ${match.week}: ${match.homeTeam} ${match.homeScore}, ${match.awayTeam} ${match.awayScore}">
+      <span class="result-week">Week ${match.week}</span>
+      <strong class="result-team" style="--team-color: ${getTeamColor(match.homeTeam)}">${match.homeTeam}</strong>
+      <strong class="result-score">${match.homeScore} - ${match.awayScore}</strong>
+      <strong class="result-team away" style="--team-color: ${getTeamColor(match.awayTeam)}">${match.awayTeam}</strong>
+      <time class="result-date">${shortDate(match.date)}</time>
     </article>
   `).join("");
 }
@@ -302,12 +302,9 @@ function renderScorers(scorers) {
   const scorersList = document.getElementById("scorers-list");
 
   scorersList.innerHTML = scorers.map((scorer) => `
-    <li>
-      <span class="mini-swatch" style="background: ${getTeamColor(scorer.team)}"></span>
-      <span class="scorer-meta">
-        <strong>${scorer.player}</strong>
-        <span>${scorer.team}</span>
-      </span>
+    <li class="scorer-row">
+      <strong class="scorer-name">${scorer.player}</strong>
+      <span class="scorer-team" style="--team-color: ${getTeamColor(scorer.team)}">${scorer.team}</span>
       <strong class="scorer-goals">${scorer.goals}</strong>
     </li>
   `).join("");
@@ -319,27 +316,69 @@ function renderFixtures() {
   if (!leagueData.fixtures.length) {
     fixturesList.innerHTML = `
       <div class="fixture-empty">
-        <strong>Fixtures coming soon</strong>
-        <p>Upcoming matchups can be added to the fixtures array when the next Sunday is locked in.</p>
-        <span>Stay ready.</span>
+        <svg aria-hidden="true" viewBox="0 0 24 24">
+          <path d="M7 3v3m10-3v3M4 9h16M5 5h14a1 1 0 0 1 1 1v14H4V6a1 1 0 0 1 1-1Z"></path>
+        </svg>
+        <strong>Next Sunday</strong>
+        <span>Fixture to be confirmed</span>
       </div>
     `;
     return;
   }
 
   fixturesList.innerHTML = leagueData.fixtures.map((fixture) => `
-    <article class="matchday-card">
-      <div class="matchday-header">
-        <span>Week ${fixture.week}</span>
-        <span>${fixture.date}</span>
-      </div>
-      <div class="match-row">
-        <strong class="team-name">${fixture.homeTeam}</strong>
-        <span class="scoreline">vs</span>
-        <strong class="team-name away">${fixture.awayTeam}</strong>
-      </div>
+    <article class="fixture-row">
+      <strong>${fixture.homeTeam}</strong>
+      <span>vs<time>${shortDate(fixture.date)}</time></span>
+      <strong>${fixture.awayTeam}</strong>
     </article>
   `).join("");
+}
+
+function bindInteractions() {
+  const menuButton = document.getElementById("menu-button");
+  const desktopNav = document.getElementById("desktop-nav");
+  const resultsToggle = document.getElementById("results-toggle");
+  const resultsList = document.getElementById("results-list");
+  const navLinks = document.querySelectorAll(".desktop-nav a, .mobile-nav a");
+
+  menuButton.addEventListener("click", () => {
+    const isOpen = menuButton.getAttribute("aria-expanded") === "true";
+    menuButton.setAttribute("aria-expanded", String(!isOpen));
+    desktopNav.classList.toggle("is-open", !isOpen);
+  });
+
+  desktopNav.addEventListener("click", (event) => {
+    if (event.target.closest("a")) {
+      menuButton.setAttribute("aria-expanded", "false");
+      desktopNav.classList.remove("is-open");
+    }
+  });
+
+  resultsToggle.addEventListener("click", () => {
+    const isExpanded = resultsToggle.getAttribute("aria-expanded") === "true";
+    resultsToggle.setAttribute("aria-expanded", String(!isExpanded));
+    resultsToggle.textContent = isExpanded ? "View all" : "Show less";
+    resultsList.classList.toggle("is-expanded", !isExpanded);
+  });
+
+  const updateActiveNav = (sectionId) => {
+    navLinks.forEach((link) => {
+      link.classList.toggle("is-active", link.getAttribute("href") === `#${sectionId}`);
+    });
+  };
+
+  const observer = new IntersectionObserver((entries) => {
+    const visible = entries
+      .filter((entry) => entry.isIntersecting)
+      .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
+    if (visible) updateActiveNav(visible.target.id);
+  }, { rootMargin: "-20% 0px -65%", threshold: [0, 0.1, 0.5] });
+
+  ["home", "table", "results", "scorers"].forEach((id) => {
+    const section = document.getElementById(id);
+    if (section) observer.observe(section);
+  });
 }
 
 function renderApp() {
@@ -347,14 +386,15 @@ function renderApp() {
   const scorers = calculateScorers();
   const latestWeek = Math.max(...leagueData.matches.map((match) => match.week));
 
-  document.getElementById("season-start").textContent = leagueData.seasonStart;
-  document.getElementById("last-updated").textContent = `Week ${latestWeek}`;
+  document.getElementById("season-start").textContent = shortDate(leagueData.seasonStart);
+  document.getElementById("last-updated").textContent = `After week ${latestWeek}`;
 
-  renderLeader(table);
+  renderLatestResult();
   renderTable(table);
   renderResults();
   renderScorers(scorers);
   renderFixtures();
+  bindInteractions();
 }
 
 renderApp();

@@ -3,104 +3,94 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Jamaica Sunday League Stats</title>
-    <meta
-      name="description"
-      content="Mobile-friendly stats tracker for a Sunday football league among friends in Jamaica."
-    >
-    <meta property="og:title" content="Jamaica Sunday League Stats">
-    <meta
-      property="og:description"
-      content="League table, results, scorers, and upcoming fixtures for the Sunday crew."
-    >
+    <title>Jamaica Sunday League</title>
+    <meta name="description" content="League table, results, scorers, and fixtures for the Jamaica Sunday League.">
+    <meta property="og:title" content="Jamaica Sunday League">
+    <meta property="og:description" content="Friends. Football. Bragging rights. Follow the Sunday league table, results, and top scorers.">
     <meta property="og:type" content="website">
-    <meta name="theme-color" content="#0f6f31">
+    <meta name="theme-color" content="#090a09">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,500;0,600;0,700;0,800;0,900;1,600&family=Barlow:wght@500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
   </head>
   <body>
-    <div class="page-shell">
-      <header class="hero">
-        <nav class="top-bar" aria-label="Primary">
-          <a class="brand" href="#top" aria-label="Jamaica Sunday League home">
-            <span class="brand-mark" aria-hidden="true">
-              <svg viewBox="0 0 64 64" role="img">
-                <circle cx="32" cy="32" r="29" fill="#f58220"></circle>
-                <path d="M32 8 56 52H8Z" fill="#0f6f31"></path>
-                <circle cx="32" cy="32" r="14" fill="#fff"></circle>
-                <path d="m32 18 8 6-3 10H27l-3-10Z" fill="#111"></path>
-                <path d="m20 31 7 3 1 9-8 2-6-8Z" fill="#111"></path>
-                <path d="m44 31 6 6-6 8-8-2 1-9Z" fill="#111"></path>
-              </svg>
-            </span>
-            <span>Sunday League</span>
+    <div class="site-shell">
+      <header id="home" class="masthead">
+        <div class="topbar">
+          <button class="menu-button" id="menu-button" type="button" aria-expanded="false" aria-controls="desktop-nav">
+            <span class="sr-only">Open navigation</span>
+            <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h16"></path></svg>
+          </button>
+
+          <a class="brand" href="#home" aria-label="Jamaica Sunday League home">
+            <span class="brand-name"><span>Jamaica</span> Sunday League</span>
+            <span class="tagline">Friends. Football. Bragging rights.</span>
           </a>
-          <div class="nav-links">
-            <a href="#table">Table</a>
-            <a href="#results">Results</a>
-            <a href="#scorers">Scorers</a>
-          </div>
+
+          <span class="crest" aria-hidden="true">
+            <svg viewBox="0 0 48 48">
+              <circle cx="24" cy="26" r="13"></circle>
+              <path d="m24 13 5 4-2 6h-6l-2-6 5-4Zm-12 10 7 1 2 7-5 5-6-4m26-9-7 1-2 7 5 5 6-4M17 39l4-8h6l4 8"></path>
+              <path d="M15 9 12 4l6 3 6-5 6 5 6-3-3 5"></path>
+            </svg>
+          </span>
+        </div>
+
+        <nav id="desktop-nav" class="desktop-nav" aria-label="Primary navigation">
+          <a class="is-active" href="#home">Home</a>
+          <a href="#table">Table</a>
+          <a href="#results">Results</a>
+          <a href="#scorers">Scorers</a>
         </nav>
 
-        <section id="top" class="hero-grid" aria-labelledby="page-title">
-          <div class="hero-copy">
-            <p class="season">Season started <span id="season-start">May 31, 2026</span></p>
-            <h1 id="page-title">Jamaica Sunday League</h1>
-            <p class="tagline">Friends. Football. Bragging rights.</p>
-            <div class="hero-actions" aria-label="Quick stats">
-              <a href="#table" class="primary-action">View Table</a>
-              <a href="#results" class="secondary-action">Week 1 Result</a>
+        <div class="season-strip" aria-label="Season information">
+          <span>
+            <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M7 3v3m10-3v3M4 9h16M5 5h14a1 1 0 0 1 1 1v14H4V6a1 1 0 0 1 1-1Z"></path></svg>
+            Season 2026
+          </span>
+          <span class="season-divider" aria-hidden="true"></span>
+          <span>
+            <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M5 21V4m0 1h11l-2 4 2 4H5"></path></svg>
+            Started <span id="season-start">May 31</span>
+          </span>
+        </div>
+
+        <section class="scoreboard" aria-labelledby="latest-result-title">
+          <div class="match-meta">
+            <h1 id="latest-result-title">Week <span id="latest-week">11</span></h1>
+            <time id="latest-date">August 9</time>
+          </div>
+          <div class="scoreboard-grid">
+            <div class="score-team score-team-home" id="latest-home-block">
+              <strong id="latest-home-team">Green</strong>
+              <span id="latest-home-scorers">Chad 1, Breadback 2</span>
+            </div>
+            <div class="scoreline" aria-label="Latest match score">
+              <strong id="latest-home-score">3</strong>
+              <span aria-hidden="true"></span>
+              <strong id="latest-away-score">2</strong>
+            </div>
+            <div class="score-team score-team-away" id="latest-away-block">
+              <strong id="latest-away-team">Orange</strong>
+              <span id="latest-away-scorers">Fry 1</span>
             </div>
           </div>
-
-          <aside class="leader-card" aria-labelledby="leader-title">
-            <p id="leader-title" class="card-kicker">Current Leader</p>
-            <div class="leader-team">
-              <span id="leader-swatch" class="team-swatch"></span>
-              <div>
-                <strong id="leader-name">Loading</strong>
-                <span id="leader-record">Calculating table</span>
-              </div>
-            </div>
-            <dl class="leader-stats">
-              <div>
-                <dt>Pts</dt>
-                <dd id="leader-points">0</dd>
-              </div>
-              <div>
-                <dt>GD</dt>
-                <dd id="leader-gd">0</dd>
-              </div>
-              <div>
-                <dt>GF</dt>
-                <dd id="leader-gf">0</dd>
-              </div>
-            </dl>
-          </aside>
         </section>
       </header>
 
       <main>
-        <section id="table" class="section-card table-section" aria-labelledby="table-title">
-          <div class="section-heading">
-            <div>
-              <p class="section-label">Standings</p>
-              <h2 id="table-title">League Table</h2>
-            </div>
-            <span class="updated-badge" id="last-updated">Week 1</span>
+        <section id="table" class="league-section table-section" aria-labelledby="table-title">
+          <div class="section-title">
+            <h2 id="table-title">League Table</h2>
+            <span id="last-updated">After week 11</span>
           </div>
           <div class="table-wrap">
             <table>
               <thead>
                 <tr>
-                  <th>Team</th>
-                  <th>P</th>
-                  <th>W</th>
-                  <th>D</th>
-                  <th>L</th>
-                  <th>GF</th>
-                  <th>GA</th>
-                  <th>GD</th>
-                  <th>Pts</th>
+                  <th scope="col">#</th><th scope="col">Team</th><th scope="col">P</th><th scope="col">W</th><th scope="col">D</th><th scope="col">L</th>
+                  <th class="table-detail" scope="col">GF</th><th class="table-detail" scope="col">GA</th><th scope="col">GD</th><th scope="col">Pts</th>
                 </tr>
               </thead>
               <tbody id="league-table"></tbody>
@@ -108,44 +98,43 @@
           </div>
         </section>
 
-        <div class="content-grid">
-          <section id="results" class="section-card" aria-labelledby="results-title">
-            <div class="section-heading">
-              <div>
-                <p class="section-label">Matchdays</p>
-                <h2 id="results-title">Results</h2>
-              </div>
-            </div>
-            <div id="results-list" class="results-list"></div>
-          </section>
-
-          <section id="scorers" class="section-card" aria-labelledby="scorers-title">
-            <div class="section-heading">
-              <div>
-                <p class="section-label">Golden Boot</p>
-                <h2 id="scorers-title">Top Scorers</h2>
-              </div>
-            </div>
-            <ol id="scorers-list" class="scorers-list"></ol>
-          </section>
-        </div>
-
-        <section id="fixtures" class="section-card fixtures-card" aria-labelledby="fixtures-title">
-          <div class="section-heading">
-            <div>
-              <p class="section-label">Next Up</p>
-              <h2 id="fixtures-title">Fixtures</h2>
-            </div>
+        <section id="results" class="league-section results-section" aria-labelledby="results-title">
+          <div class="section-title">
+            <h2 id="results-title">Recent Results</h2>
+            <button id="results-toggle" class="text-button" type="button" aria-expanded="false">View all</button>
           </div>
+          <div id="results-list" class="results-list"></div>
+        </section>
+
+        <section id="scorers" class="league-section scorers-section" aria-labelledby="scorers-title">
+          <div class="section-title"><h2 id="scorers-title">Top Scorers</h2><span>Golden boot race</span></div>
+          <ol id="scorers-list" class="scorers-list"></ol>
+        </section>
+
+        <section id="fixtures" class="league-section fixtures-section" aria-labelledby="fixtures-title">
+          <div class="section-title"><h2 id="fixtures-title">Fixtures</h2></div>
           <div id="fixtures-list" class="fixtures-list"></div>
         </section>
       </main>
 
-      <footer>
-        <p>One community. One game. One love.</p>
-        <a href="#top">Back to top</a>
-      </footer>
+      <footer><span aria-hidden="true"></span><p>One community. One game. One love.</p><span aria-hidden="true"></span></footer>
     </div>
-    <script src="script.js?v=20260816-week11-r2"></script>
+
+    <nav class="mobile-nav" aria-label="Mobile navigation">
+      <a class="is-active" href="#home">
+        <svg aria-hidden="true" viewBox="0 0 24 24"><path d="m3 11 9-8 9 8v10h-6v-6H9v6H3V11Z"></path></svg><span>Home</span>
+      </a>
+      <a href="#table">
+        <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M4 4h16v16H4V4Zm0 5h16M9 4v16m6-16v16"></path></svg><span>Table</span>
+      </a>
+      <a href="#results">
+        <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M7 3v3m10-3v3M4 9h16M5 5h14a1 1 0 0 1 1 1v14H4V6a1 1 0 0 1 1-1Z"></path></svg><span>Results</span>
+      </a>
+      <a href="#scorers">
+        <svg aria-hidden="true" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"></circle><path d="m12 7 3 2-1 4h-4L9 9l3-2Zm-6 6 4 1 1 4m7-5-4 1-1 4"></path></svg><span>Scorers</span>
+      </a>
+    </nav>
+
+    <script src="script.js?v=20260816-theme-preview"></script>
   </body>
 </html>
