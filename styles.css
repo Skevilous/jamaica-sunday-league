@@ -574,19 +574,50 @@ footer a {
     text-align: center;
   }
 
+  .table-wrap {
+    overflow-x: hidden;
+  }
+
   table {
-    min-width: 560px;
+    min-width: 0;
+    table-layout: fixed;
   }
 
   th,
   td {
-    padding: 12px 8px;
-    font-size: 0.72rem;
+    padding: 12px 2px;
+    font-size: 0.68rem;
   }
 
   th:first-child,
   td:first-child {
-    min-width: 122px;
+    position: static;
+    width: 34%;
+    min-width: 0;
+    padding-left: 8px;
+  }
+
+  th:nth-child(6),
+  td:nth-child(6),
+  th:nth-child(7),
+  td:nth-child(7) {
+    display: none;
+  }
+
+  th:last-child,
+  td:last-child {
+    width: 12%;
+    color: var(--yellow);
+    font-weight: 900;
+  }
+
+  .team-cell {
+    gap: 5px;
+  }
+
+  .mini-swatch {
+    width: 14px;
+    height: 14px;
   }
 
   footer {
